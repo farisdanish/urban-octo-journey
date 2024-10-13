@@ -15,8 +15,8 @@
       </div>
       <div>
         <input v-model="search" @change="getProducts(null)"
-               class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-               placeholder="Type to Search products">
+              class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Type to Search products">
       </div>
     </div>
 
@@ -30,19 +30,19 @@
           Image
         </TableHeaderCell>
         <TableHeaderCell field="title" :sort-field="sortField" :sort-direction="sortDirection"
-                         @click="sortProducts('title')">
+                        @click="sortProducts('title')">
           Title
         </TableHeaderCell>
         <TableHeaderCell field="price" :sort-field="sortField" :sort-direction="sortDirection"
-                         @click="sortProducts('price')">
+                        @click="sortProducts('price')">
           Price
         </TableHeaderCell>
         <TableHeaderCell field="quantity" :sort-field="sortField" :sort-direction="sortDirection"
-                         @click="sortProducts('quantity')">
+                        @click="sortProducts('quantity')">
           Quantity
         </TableHeaderCell>
         <TableHeaderCell field="updated_at" :sort-field="sortField" :sort-direction="sortDirection"
-                         @click="sortProducts('updated_at')">
+                        @click="sortProducts('updated_at')">
           Last Updated At
         </TableHeaderCell>
         <TableHeaderCell field="actions">
@@ -71,7 +71,7 @@
           {{ product.title }}
         </td>
         <td class="border-b p-2">
-          {{ $filters.currencyUSD(product.price) }}
+          RM {{ product.price }}
         </td>
         <td class="border-b p-2">
           {{ product.quantity }}

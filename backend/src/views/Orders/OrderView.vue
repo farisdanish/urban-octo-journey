@@ -88,7 +88,7 @@
         <!-- Order Item -->
         <div class="flex flex-col sm:flex-row items-center  gap-4">
           <a href="#"
-             class="w-36 h-32 flex items-center justify-center overflow-hidden">
+            class="w-36 h-32 flex items-center justify-center overflow-hidden">
             <img :src="item.product.image" class="object-cover" alt=""/>
           </a>
           <div class="flex flex-col justify-between flex-1">
@@ -99,7 +99,7 @@
             </div>
             <div class="flex justify-between items-center">
               <div class="flex items-center">Qty: {{ item.quantity }}</div>
-              <span class="text-lg font-semibold"> {{ $filters.currencyUSD(item.unit_price) }} </span>
+              <span class="text-lg font-semibold"> RM {{ item.unit_price }} </span>
             </div>
           </div>
         </div>

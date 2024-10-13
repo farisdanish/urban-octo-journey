@@ -21,11 +21,6 @@ class Order extends Model
         return $this->status === OrderStatus::Paid->value;
     }
 
-    public function payment(): HasOne
-    {
-        return $this->hasOne(Payment::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -34,12 +29,5 @@ class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
-    }
-
-    public static function deleteUnpaidOrders($hours)
-    {
-        return Order::query()->where('status', OrderStatus::Unpaid->value)
-            ->where('created_at', '<', Carbon::now()->subHours($hours))
-            ->delete();
     }
 }
