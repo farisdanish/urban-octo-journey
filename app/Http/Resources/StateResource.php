@@ -3,10 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
 
-class CountryResource extends JsonResource
+class StateResource extends JsonResource
 {
     public static $wrap = false;
 
@@ -19,9 +17,9 @@ class CountryResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'code' => $this->code,
-            'name' => $this->name,
-            'states' => json_decode($this->states, true),
+            'id' => $this->id, // Assuming 'id' is the primary key for the states table
+            'code' => $this->code, // Assuming 'code' represents the state's code (e.g., MY-01 for Selangor)
+            'name' => $this->name, // State name (e.g., Selangor)
         ];
     }
 }

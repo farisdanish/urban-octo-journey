@@ -18,7 +18,7 @@
     <!--/    Active Customers-->
     <!--    Active Products -->
     <div class="animate-fade-in-down bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center"
-         style="animation-delay: 0.1s">
+        style="animation-delay: 0.1s">
       <label class="text-lg font-semibold block mb-2">Active Products</label>
       <template v-if="!loading.productsCount">
         <span class="text-3xl font-semibold">{{ productsCount }}</span>
@@ -38,7 +38,7 @@
     <!--/    Paid Orders -->
     <!--    Total Income -->
     <div class="animate-fade-in-down bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center"
-         style="animation-delay: 0.3s">
+        style="animation-delay: 0.3s">
       <label class="text-lg font-semibold block mb-2">Total Income</label>
       <template v-if="!loading.totalIncome">
         <span class="text-3xl font-semibold">{{ totalIncome }}</span>
@@ -67,18 +67,20 @@
       </template>
       <Spinner v-else text="" class=""/>
     </div>
+    <!--/Orders by state-->
     <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
-      <label class="text-lg font-semibold block mb-2">Orders by Country</label>
-      <template v-if="!loading.ordersByCountry">
-        <DoughnutChart :width="140" :height="200" :data="ordersByCountry"/>
+      <label class="text-lg font-semibold block mb-2">Orders by State</label>
+      <template v-if="!loading.ordersByState">
+          <DoughnutChart :width="140" :height="200" :data="ordersByState"/>
       </template>
       <Spinner v-else text="" class=""/>
     </div>
+
     <div class="bg-white py-6 px-5 rounded-lg shadow">
       <label class="text-lg font-semibold block mb-2">Latest Customers</label>
       <template v-if="!loading.latestCustomers">
         <router-link :to="{name: 'app.customers.view', params: {id: c.id}}" v-for="c of latestCustomers" :key="c.id"
-                     class="mb-3 flex">
+                    class="mb-3 flex">
           <div class="w-12 h-12 bg-gray-200 flex items-center justify-center rounded-full mr-2">
             <UserIcon class="w-5"/>
           </div>
@@ -112,7 +114,7 @@ const loading = ref({
   productsCount: true,
   paidOrders: true,
   totalIncome: true,
-  ordersByCountry: true,
+  ordersByState: true,
   latestCustomers: true,
   latestOrders: true
 })
@@ -120,7 +122,7 @@ const customersCount = ref(0);
 const productsCount = ref(0);
 const paidOrders = ref(0);
 const totalIncome = ref(0);
-const ordersByCountry = ref([]);
+const ordersByState = ref([]);
 const latestCustomers = ref([]);
 const latestOrders = ref([]);
 
@@ -131,7 +133,7 @@ function updateDashboard() {
     productsCount: true,
     paidOrders: true,
     totalIncome: true,
-    ordersByCountry: true,
+    ordersByState: true,
     latestCustomers: true,
     latestOrders: true
   }
@@ -147,17 +149,18 @@ function updateDashboard() {
     paidOrders.value = data;
     loading.value.paidOrders = false;
   })
-  axiosClient.get(`/dashboard/income-amount`, {params: {d}}).then(({data}) => {
-    totalIncome.value = new Intl.NumberFormat('en-US', {
+  axiosClient.get(`/dashboard/income-amount`, { params: { d } })
+  .then(({ data }) => {
+    totalIncome.value = new Intl.NumberFormat('en-MY', { // Change to 'en-MY' for Malaysian format
       style: 'currency',
-      currency: 'USD',
+      currency: 'MYR', // Change currency to MYR (Malaysian Ringgit)
       minimumFractionDigits: 0
-    })
-      .format(data);
+    }).format(data);
     loading.value.totalIncome = false;
-  })
-  axiosClient.get(`/dashboard/orders-by-country`, {params: {d}}).then(({data: countries}) => {
-    loading.value.ordersByCountry = false;
+  });
+  axiosClient.get(`/dashboard/orders-by-state`, {params: {d}}).then(({data: states}) => {
+    loading.value.ordersByState = false;
+
     const chartData = {
       labels: [],
       datasets: [{
@@ -165,11 +168,11 @@ function updateDashboard() {
         data: []
       }]
     }
-    countries.forEach(c => {
+    states.forEach(c => {
       chartData.labels.push(c.name);
       chartData.datasets[0].data.push(c.count);
     })
-    ordersByCountry.value = chartData
+    ordersByState.value = chartData
   })
 
   axiosClient.get(`/dashboard/latest-customers`, {params: {d}}).then(({data: customers}) => {

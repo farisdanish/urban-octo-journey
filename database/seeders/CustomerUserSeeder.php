@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class AdminUserSeeder extends Seeder
+class CustomerUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,12 +16,12 @@ class AdminUserSeeder extends Seeder
     {
         // Using updateOrCreate to avoid duplication
         User::updateOrCreate(
-            ['email' => 'admin@example.com'], // Condition to find the user
+            ['email' => 'customer@example.com'], // Condition to find the user
             [ // Values to insert or update if found
-                'name' => 'Admin',
-                'password' => bcrypt('admin123'), // Always hash the password
+                'name' => 'Ahmad Malik',
+                'password' => bcrypt('password123'), // Hash the password
                 'email_verified_at' => now(),
-                'is_admin' => true
+                'is_admin' => false, // Ensure the customer is not an admin
             ]
         );
     }

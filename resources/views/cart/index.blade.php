@@ -31,14 +31,14 @@
                             <div
                                 class="w-full flex flex-col sm:flex-row items-center gap-4 flex-1">
                                 <a :href="product.href"
-                                   class="w-36 h-32 flex items-center justify-center overflow-hidden">
+                                    class="w-36 h-32 flex items-center justify-center overflow-hidden">
                                     <img :src="product.image" class="object-cover" alt=""/>
                                 </a>
                                 <div class="flex flex-col justify-between flex-1">
                                     <div class="flex justify-between mb-3">
                                         <h3 x-text="product.title"></h3>
                                         <span class="text-lg font-semibold">
-                                            $<span x-text="product.price"></span>
+                                            RM<span x-text="product.price"></span>
                                         </span>
                                     </div>
                                     <div class="flex justify-between items-center">
@@ -70,7 +70,7 @@
                     <div class="border-t border-gray-300 pt-4">
                         <div class="flex justify-between">
                             <span class="font-semibold">Subtotal</span>
-                            <span id="cartTotal" class="text-xl" x-text="`$${cartTotal}`"></span>
+                            <span id="cartTotal" class="text-xl" x-text="`RM${cartTotal}`"></span>
                         </div>
                         <p class="text-gray-500 mb-6">
                             Shipping and taxes calculated at checkout.

@@ -29,7 +29,7 @@ $categoryList = \App\Models\Category::getActiveAsTree();
         }">
         <form action="" method="GET" class="flex-1" @submit.prevent="updateUrl">
             <x-input type="text" name="search" placeholder="Search for the products"
-                     x-model="searchKeyword"/>
+                    x-model="searchKeyword"/>
         </form>
         <x-input
             x-model="selectedSort"
@@ -69,7 +69,7 @@ $categoryList = \App\Models\Category::getActiveAsTree();
                     class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white"
                 >
                     <a href="{{ route('product.view', $product->slug) }}"
-                       class="aspect-w-3 aspect-h-2 block overflow-hidden">
+                        class="aspect-w-3 aspect-h-2 block overflow-hidden">
                         <img
                             :src="product.image"
                             alt=""
@@ -82,7 +82,7 @@ $categoryList = \App\Models\Category::getActiveAsTree();
                                 {{$product->title}}
                             </a>
                         </h3>
-                        <h5 class="font-bold">${{$product->price}}</h5>
+                        <h5 class="font-bold">RM{{$product->price}}</h5>
                     </div>
                     <div class="flex justify-between py-3 px-4">
                         <button class="btn-primary" @click="addToCart()">

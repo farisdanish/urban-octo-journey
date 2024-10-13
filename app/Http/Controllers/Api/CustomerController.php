@@ -6,10 +6,10 @@ use App\Enums\AddressType;
 use App\Enums\CustomerStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
-use App\Http\Resources\CountryResource;
+use App\Http\Resources\StateResource;
 use App\Http\Resources\CustomerListResource;
 use App\Http\Resources\CustomerResource;
-use App\Models\Country;
+use App\Models\State;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use http\Env\Request;
@@ -116,8 +116,8 @@ class CustomerController extends Controller
         return response()->noContent();
     }
 
-    public function countries()
+    public function states()
     {
-        return CountryResource::collection(Country::query()->orderBy('name', 'asc')->get());
+        return StateResource::collection(State::query()->orderBy('name', 'asc')->get());
     }
 }

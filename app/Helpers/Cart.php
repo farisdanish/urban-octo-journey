@@ -92,13 +92,26 @@ class Cart
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      * @author Zura Sekhniashvili <zurasekhniashvili@gmail.com>
      */
+    // public static function getProductsAndCartItems(): array|\Illuminate\Database\Eloquent\Collection
+    // {
+    //     $cartItems = self::getCartItems();
+    //     $ids = Arr::pluck($cartItems, 'product_id');
+    //     $products = Product::query()->whereIn('id', $ids)->get();
+    //     $cartItems = Arr::keyBy($cartItems, 'product_id');
+
+    //     return [$products, $cartItems];
+    // }
     public static function getProductsAndCartItems(): array|\Illuminate\Database\Eloquent\Collection
     {
-        $cartItems = self::getCartItems();
-        $ids = Arr::pluck($cartItems, 'product_id');
-        $products = Product::query()->whereIn('id', $ids)->get();
+        $cartItems = self::getCartItems(); // Assuming this returns an array of cart items
+        $ids = Arr::pluck($cartItems, 'product_id'); // Get product IDs from cart items
+
+        // Fetch products based on the IDs retrieved
+        $products = Product::whereIn('id', $ids)->get(); // This should return a collection of Product models
+
+        // Key the cart items by product ID for easy access
         $cartItems = Arr::keyBy($cartItems, 'product_id');
 
-        return [$products, $cartItems];
+        return [$products, $cartItems]; // Return both collections
     }
 }

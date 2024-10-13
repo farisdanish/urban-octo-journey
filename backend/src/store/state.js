@@ -33,7 +33,7 @@ export default {
     limit: null,
     total: null
   },
-  countries: [],
+  states: [],
   orders: {
     loading: false,
     data: [],

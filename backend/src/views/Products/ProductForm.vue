@@ -7,22 +7,22 @@
   </div>
   <div class="bg-white rounded-lg shadow animate-fade-in-down">
     <Spinner v-if="loading"
-             class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center z-50"/>
+            class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center z-50"/>
     <form v-if="!loading" @submit.prevent="onSubmit">
       <div class="grid grid-cols-3">
         <div class="col-span-2 px-4 pt-5 pb-4">
           <CustomInput class="mb-2" v-model="product.title" label="Product Title" :errors="errors['title']"/>
           <CustomInput type="richtext" class="mb-2" v-model="product.description" label="Description" :errors="errors['description']"/>
-          <CustomInput type="number" class="mb-2" v-model="product.price" label="Price" prepend="$" :errors="errors['price']"/>
+          <CustomInput type="number" class="mb-2" v-model="product.price" label="Price" prepend="RM" :errors="errors['price']"/>
           <CustomInput type="number" class="mb-2" v-model="product.quantity" label="Quantity" :errors="errors['quantity']"/>
           <CustomInput type="checkbox" class="mb-2" v-model="product.published" label="Published" :errors="errors['published']"/>
           <treeselect v-model="product.categories" :multiple="true" :options="options" :errors="errors['categories']"/>
         </div>
         <div class="col-span-1 px-4 pt-5 pb-4">
           <image-preview v-model="product.images"
-                         :images="product.images"
-                         v-model:deleted-images="product.deleted_images"
-                         v-model:image-positions="product.image_positions"/>
+                        :images="product.images"
+                        v-model:deleted-images="product.deleted_images"
+                        v-model:image-positions="product.image_positions"/>
         </div>
       </div>
       <footer class="bg-gray-50 rounded-b-lg px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

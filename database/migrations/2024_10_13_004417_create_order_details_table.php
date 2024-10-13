@@ -13,18 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customer_addresses', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->string('type', 45);
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone')->nullable();
             $table->string('address1', 255);
-            $table->string('address2', 255);
+            $table->string('address2', 255)->nullable();
             $table->string('city', 255);
-            $table->string('state', 45)->nullable();
+            $table->foreignId('state_id')->constrained('states'); // Foreign key to the states table
             $table->string('zipcode', 45);
-            $table->string('country_code', 3);
-            $table->foreignId('customer_id')->references('id')->on('customers');
             $table->timestamps();
-            $table->foreign('country_code')->references('code')->on('countries');
         });
     }
 
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_addresses');
+        Schema::dropIfExists('order_details');
     }
 };

@@ -1,5 +1,11 @@
+@section('title', 'Login - TechGear Store')
+
 <x-app-layout>
-    <form method="POST" action="{{ route('login') }}" class="w-[400px] mx-auto p-6 my-16">
+    <div class="w-[400px] mx-auto p-1">
+        <img src="{{ asset('img/Techgear-nobg.png') }}" alt="TechGear Logo"/>
+    </div>
+
+    <form method="POST" action="{{ route('login') }}" class="w-[400px] mx-auto mt-3 p-1">
         <h2 class="text-2xl font-semibold text-center mb-5">
             Login to your account
         </h2>

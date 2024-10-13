@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helpers\Cart;
-use App\Http\Controllers\Controller;
-use App\Models\Customer;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
+use App\Helpers\Cart;
+use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -60,10 +61,24 @@ class RegisteredUserController extends Controller
             $customer->save();
 
             Auth::login($user);
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->withInput()->with('error', 'Unable to register right now.');
+        // }
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withInput()->with('error', 'Unable to register right now.');
+        
+            // Log the error to the log files
+            Log::error('Registration failed: ' . $e->getMessage(), [
+                'exception' => $e, // Include the exception in the logs
+            ]);
+        
+            // Display a generic error message to the user
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'An error occurred while trying to register. Please try again later.');
         }
+        
 
         DB::commit();
 

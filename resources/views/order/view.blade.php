@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td class="font-bold py-1 px-2">SubTotal</td>
-                    <td>${{ $order->total_price }}</td>
+                    <td>RM{{ $order->total_price }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">Qty: {{$item->quantity}}</div>
-                            <span class="text-lg font-semibold"> ${{$item->unit_price}} </span>
+                            <span class="text-lg font-semibold"> RM{{$item->unit_price}} </span>
                         </div>
                     </div>
                 </div>

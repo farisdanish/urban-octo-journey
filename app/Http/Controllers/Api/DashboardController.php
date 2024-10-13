@@ -52,19 +52,21 @@ class DashboardController extends Controller
         return round($query->sum('total_price'));
     }
 
-    public function ordersByCountry()
+    public function ordersByState()
     {
         $fromDate = $this->getFromDate();
+        
+        // Query for orders grouped by state
         $query = Order::query()
-            ->select(['c.name', DB::raw('count(orders.id) as count')])
+            ->select(['s.name', DB::raw('count(orders.id) as count')])
             ->join('users', 'created_by', '=', 'users.id')
             ->join('customer_addresses AS a', 'users.id', '=', 'a.customer_id')
-            ->join('countries AS c', 'a.country_code', '=', 'c.code')
+            ->join('states AS s', 'a.state_id', '=', 's.id')  // Changed from country to state
             ->where('status', OrderStatus::Paid->value)
             ->where('a.type', AddressType::Billing->value)
-            ->groupBy('c.name')
-            ;
+            ->groupBy('s.name'); // Group by state name instead of country name
 
+        // Add date filter if fromDate is provided
         if ($fromDate) {
             $query->where('orders.created_at', '>', $fromDate);
         }

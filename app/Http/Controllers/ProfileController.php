@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\State;
 use App\Enums\AddressType;
-use App\Http\Requests\PasswordUpdateRequest;
-use App\Http\Requests\ProfileRequest;
-use App\Models\Country;
-use App\Models\CustomerAddress;
 use Illuminate\Http\Request;
+use App\Models\CustomerAddress;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Password;
+use App\Http\Requests\PasswordUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -24,9 +24,9 @@ class ProfileController extends Controller
         $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
         $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
 //        dd($customer, $shippingAddress->attributesToArray(), $billingAddress, $billingAddress->customer);
-        $countries = Country::query()->orderBy('name')->get();
+        $states = State::query()->orderBy('name')->get();
 
-        return view('profile.view', compact('customer', 'user', 'shippingAddress', 'billingAddress', 'countries'));
+        return view('profile.view', compact('customer', 'user', 'shippingAddress', 'billingAddress', 'states'));
     }
 
     public function store(ProfileRequest $request)
@@ -62,15 +62,15 @@ class ProfileController extends Controller
             DB::rollBack();
 
             Log::critical(__METHOD__ . ' method does not work. '. $e->getMessage());
+            session()->flash('error', $e->getMessage());
             throw $e;
         }
 
         DB::commit();
 
-        $request->session()->flash('flash_message', 'Profile was successfully updated.');
+        session()->flash('flash_message', 'Profile was successfully updated.');
 
         return redirect()->route('profile');
-
     }
 
     public function passwordUpdate(PasswordUpdateRequest $request)
@@ -83,7 +83,7 @@ class ProfileController extends Controller
         $user->password = Hash::make($passwordData['new_password']);
         $user->save();
 
-        $request->session()->flash('flash_message', 'Your password was successfully updated.');
+        session()->flash('flash_message', 'Your password was successfully updated.');
 
         return redirect()->route('profile');
     }

@@ -1,8 +1,13 @@
+@section('title', 'Register - TechGear Store')
+
 <x-app-layout>
+    <div class="w-[400px] h-40 mx-auto p-1">
+        <img src="{{ asset('img/Techgear-nobg.png') }}" alt="TechGear Logo"/>
+    </div>
     <form
         action="{{ route('register') }}"
         method="post"
-        class="w-[400px] mx-auto p-6 my-16"
+        class="w-[400px] mx-auto mt-2"
     >
         @csrf
 

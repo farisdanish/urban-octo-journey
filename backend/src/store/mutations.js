@@ -90,8 +90,8 @@ export function hideToast(state) {
   state.toast.message = '';
 }
 
-export function setCountries(state, countries) {
-  state.countries = countries.data;
+export function setStates(state, states) {
+  state.states = states.data; // Assuming the API response contains a `data` field
 }
 
 export function setCategories(state, [loading, data = null]) {

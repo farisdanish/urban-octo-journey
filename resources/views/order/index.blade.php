@@ -36,12 +36,12 @@
                             </small
                             >
                         </td>
-                        <td class="py-1 px-2">${{$order->total_price}}</td>
+                        <td class="py-1 px-2">RM{{$order->total_price}}</td>
                         <td class="py-1 px-2 whitespace-nowrap">{{$order->items_count}} item(s)</td>
                         <td class="py-1 px-2 flex gap-2 w-[100px]">
                             @if (!$order->isPaid())
                                 <form action="{{ route('cart.checkout-order', $order) }}"
-                                      method="POST">
+                                    method="POST">
                                     @csrf
                                     <button
                                         class="flex items-center py-1 btn-primary whitespace-nowrap"

@@ -26,10 +26,10 @@ export function logout({commit}) {
     })
 }
 
-export function getCountries({commit}) {
-  return axiosClient.get('countries')
-    .then(({data}) => {
-      commit('setCountries', data)
+export function getStates({ commit }) {
+  return axiosClient.get('states')  // Updated API endpoint to 'states'
+    .then(({ data }) => {
+      commit('setStates', data)  // Updated mutation to 'setStates'
     })
 }
 
